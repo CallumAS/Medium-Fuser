@@ -1,8 +1,6 @@
 # Medium-Fuser
 
 ## To-do
-- Add API-KEY to enviroment variables
-- Improve UI Design
 - Code Quality Improvements
 - Public Release
 
