@@ -1,7 +1,7 @@
 # Medium-Fuser
 
 ## To-do
-- Improve Post Component so its not injecting divs for each post
+- Animate the show more/show less
 - Make Post Components an infinite carousel 
 - Host On Website: mediumfuser.site
 - Public Release
