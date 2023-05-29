@@ -27,3 +27,8 @@ ADDS THE USERS CONTENT TO SCRAPE
 https://[DOMAIN]/data
 
 DISPLAYS CONTENT FROM ALL USERS CONTENT ADDED SORTED BY TIME
+
+
+## Contributors
+@Robby6Strings - Big help cleaning and improving functionality <3 
+
