@@ -10,7 +10,8 @@ import {
 
 import { RxDBQueryBuilderPlugin } from 'rxdb/plugins/query-builder';
 addRxPlugin(RxDBQueryBuilderPlugin);
-
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
 let db: RxDatabase;
 interface Content {
     Title: string;
@@ -91,6 +92,16 @@ interface Content {
 
 })()
 
+let names: string[] = []
+
+function updatePosts() {
+    console.log("updating posts...")
+    names.forEach(name => {
+        console.log(name)
+    });
+}
+
+setInterval(updatePosts, 60 * 60 * 1000);
 
 
 // Initialize the express engine
@@ -99,10 +110,7 @@ app.use(cors());
 
 // Take a port 3000 for running server.
 const port: number = 3003;
-
-// Handling '/' Request
-app.get('/', async (req, res) => {
-    const name = req.query.name as string;
+async function loadPosts(name: string) {
     var page = ""
     var posts = []
     var active = true;
@@ -124,7 +132,20 @@ app.get('/', async (req, res) => {
         })
         posts.push(processed)
     }
-    res.send(posts);
+}
+
+// Handling '/' Request
+app.get('/', async (req, res) => {
+    const name = req.query.name as string;
+    const apikey = req.query.key as string;
+    if (apikey !== process.env.API_KEY) {
+        return res.send({ "message": "invalid api key" });
+    }
+    if (!names.includes(name)) {
+        names.push(name)
+    }
+    await loadPosts(name)
+    res.send({ message: "Processed User and added to auto-updater" });
 });
 app.get('/data', async (req, res) => {
     const limit = parseInt(req.query.limit as string) || 10;
