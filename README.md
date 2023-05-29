@@ -1,13 +1,12 @@
 # Medium-Fuser
+Example: https://mediumfuser.site/
 
 ## To-do
 - Make Post Components an infinite carousel 
-- Host On Website: mediumfuser.site
-- Public Release
 
 
 ## Component
-<img width="525" alt="image" src="https://github.com/CallumAS/Medium-Fuser/assets/53473235/0a9b9950-52a6-48d1-9e2f-65b2ecc387f4">
+<img width="559" alt="image" src="https://github.com/CallumAS/Medium-Fuser/assets/53473235/4469ac46-887c-45d6-b151-d42cde800d10">
 
 Creates a feed from all users scraped look below on how to add a user
 
@@ -16,14 +15,14 @@ Creates a feed from all users scraped look below on how to add a user
 modify "/server/.env" and add API_KEY="[YOUR_API_KEY]"
 ## Server routes 
 ### ADD USER CONTENT
-http://localhost:3003/?name=[NAME]&key=[APIKEY]
+https://[DOMAIN]/?name=[NAME]&key=[APIKEY]
 
-Example: https://medium.com/@NatashaMH => http://localhost:3003/?name=NatashaMH&key=1234-1234-1234-1234
+Example: https://medium.com/@NatashaMH => https://[DOMAIN]/?name=[NAME]&key=[APIKEY]
 
 ADDS THE USERS CONTENT TO SCRAPE
 
 ### VIEW SCRAPED CONTENT
 
-http://localhost:3003/data
+https://[DOMAIN]/data
 
 DISPLAYS CONTENT FROM ALL USERS CONTENT ADDED SORTED BY TIME
