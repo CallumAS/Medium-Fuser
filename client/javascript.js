@@ -6,6 +6,15 @@ body {
   margin: 0;
   padding: 0;
 }
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
 
 #widget {
   width: 100%;
@@ -80,6 +89,18 @@ body {
 .content-paragraph {
   margin-bottom: 10px;
   line-height: 1.5;
+
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
 }
 
 .content-image {
@@ -107,10 +128,7 @@ body {
 }
 
 .article {
-
-  transition:height 0.3s ease-in-out;
-  transition-delay: 0.1s;
-   overflow: hidden;
+  overflow: hidden;
 }
 `;
 
@@ -155,9 +173,11 @@ class MediumPost extends HTMLElement {
     }
   }
   renderPost() {
+    var firstRun = false;
     if (this.postContent == null) {
       this.postContent = document.createElement("div");
       this.postContent.className = "post-container";
+      firstRun = true
     }
     if (this.creatorSection == null) {
 
@@ -189,6 +209,7 @@ class MediumPost extends HTMLElement {
 
 
     }
+
 
     if (this.titleBar == null) {
       this.titleBar = document.createElement("div");
@@ -233,7 +254,9 @@ class MediumPost extends HTMLElement {
       this.postContent.appendChild(this.showButton);
     }
     this.showButton.innerText = this.showMore ? "Show Less" : "Show More";
-    this.appendChild(this.postContent)
+    if (firstRun) {
+      this.appendChild(this.postContent)
+    }
 
 
 
