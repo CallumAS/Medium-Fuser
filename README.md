@@ -1,7 +1,6 @@
 # Medium-Fuser
 
 ## To-do
-- Animate the show more/show less
 - Make Post Components an infinite carousel 
 - Host On Website: mediumfuser.site
 - Public Release
