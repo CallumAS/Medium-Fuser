@@ -1,58 +1,25 @@
-import { MainContent } from "./models"
-import initCycleTLS from 'cycletls';
 import fs from 'fs';
-import { PostInfo } from "./post";
-import { stringify } from "querystring";
+import { getCrawler } from '../services/crawlerService';
+import { Posts } from "../types/medium"
+import { PostInfo } from "../types/post"
+import { MainContent } from '../types/models';
+
 const bodyFilePath = 'body.json'; // Replace with the actual file path
 let bodyContent = "";
-(async () => {
-    bodyContent = await fs.readFileSync(bodyFilePath, 'utf-8');
-})()
-
-let cycleTLS: any;
-(async () => {
-    cycleTLS = await initCycleTLS();
-})()
-
+bodyContent = fs.readFileSync(bodyFilePath, 'utf-8');
 
 const bodyPostFilePath = 'posts.json'; // Replace with the actual file path
 let bodyPostContent = "";
-(async () => {
-    bodyPostContent = await fs.readFileSync(bodyPostFilePath, 'utf-8');
-})()
-
-
-
-type Nullable<T> = T | null;
-
-export interface Posts {
-    nextPage: string | null
-    posts: Post[]
-}
-
-export interface Post {
-    Title: string
-    Creator: Creator
-    Tags: string[]
-    CreatedAt: number
-    Slug: string
-}
-
-export interface Creator {
-    Name: string
-    Bio: string
-    Image: string
-    Registered: number
-}
+bodyPostContent = fs.readFileSync(bodyPostFilePath, 'utf-8');
 
 
 export const GrabContent = async (postId: string = "ebae41d3b5cb"): Promise<any> => {
     // Read the body from a file
     // Send request
     const postData = bodyPostContent.replace("[POSTID]", postId)
+    const crawler = await getCrawler()
 
-
-    const response = await cycleTLS('https://medium.com/_/graphql', {
+    const response = await crawler('https://medium.com/_/graphql', {
         body: postData,
         ja3: '771,4865-4867-4866-49195-49199-52393-52392-49196-49200-49162-49161-49171-49172-51-57-47-53-10,0-23-65281-10-11-35-16-5-51-43-13-45-28-21,29-23-24-25-256-257,0',
         userAgent: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0',
@@ -75,9 +42,7 @@ export const GrabContent = async (postId: string = "ebae41d3b5cb"): Promise<any>
             "Sec-Fetch-Site": "same-origin",
         }
     }, 'post');
-    // Cleanly exit CycleTLS
-    //cycleTLS.exit();
-    var content = response.body as PostInfo;
+    const content = response.body as PostInfo;
     return content[0].data.postResult.content.bodyModel.paragraphs.map(x => ({ text: x.text, type: x.type, image: x.metadata != null ? x.metadata?.id : "" }));
 
 }
@@ -88,7 +53,8 @@ export const GrabPost = async (page: string = "", name: string = ""): Promise<Po
     console.log(name)
     // Read the body from a file
     // Send request
-    const response = await cycleTLS('https://medium.com/_/graphql', {
+    const crawler = await getCrawler()
+    const response = await crawler('https://medium.com/_/graphql', {
         body: postData,
         ja3: '771,4865-4867-4866-49195-49199-52393-52392-49196-49200-49162-49161-49171-49172-51-57-47-53-10,0-23-65281-10-11-35-16-5-51-43-13-45-28-21,29-23-24-25-256-257,0',
         userAgent: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0',
@@ -112,12 +78,10 @@ export const GrabPost = async (page: string = "", name: string = ""): Promise<Po
         }
     }, 'post');
 
-    // Cleanly exit CycleTLS
-    //cycleTLS.exit();
     const content: string | { [key: string]: any } = response.body;
-    console.log(content)
+    //  console.log(content)
     const json = content as MainContent
-    console.log(json[0].data.userResult.homepagePostsConnection)
+    //    console.log(json[0].data.userResult.homepagePostsConnection)
     return {
         nextPage: json[0].data.userResult.homepagePostsConnection.pagingInfo.next !== null
             ? json[0].data.userResult.homepagePostsConnection.pagingInfo.next.from
