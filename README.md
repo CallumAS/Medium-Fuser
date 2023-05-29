@@ -1,6 +1,7 @@
 # Medium-Fuser
 
 ## To-do
+- Mobile Friendliness
 - Improve Post Component so its not injecting divs for each post
 - Make Post Components an infinite carousel 
 - Host On Website: mediumfuser.site
