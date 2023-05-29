@@ -1,0 +1,9 @@
+{
+    "module": "commonjs",
+    "rootDir": "./client",
+    "compilerOptions": {
+        "noEmit": true,
+        "checkJs": true,
+        "allowJs": true
+    }
+}

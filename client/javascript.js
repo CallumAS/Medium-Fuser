@@ -159,21 +159,19 @@ class MediumWidget extends HTMLElement {
     return scrollPosition > documentHeight - threshold;
   }
 
-  fetchData() {
-    this.isLoading = true;
-    fetch(`http://localhost:3003/data?limit=${this.limit}&offset=${this.offset}`)
-      .then(data => data.json())
-      .then(result => {
-        result.forEach(element => {
-          this.renderPost(element);
-
-        });
-        this.isLoading = false;
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-        this.isLoading = false;
+  async fetchData() {
+    try {
+      this.isLoading = true;
+      const data = await fetch(`http://localhost:3003/data?limit=${this.limit}&offset=${this.offset}`)
+      const result = await data.json()
+      result.forEach(post => {
+        this.renderPost(post);
       });
+      this.isLoading = false;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      this.isLoading = false;
+    }
   }
 
   formatTime(timestamp) {
