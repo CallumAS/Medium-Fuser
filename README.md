@@ -1,5 +1,6 @@
 # Medium-Fuser
 Example: https://mediumfuser.site/
+Bypasses paywall & create a custom newsfeed based on your favorite users. 
 
 ## To-do
 - Make Post Components an infinite carousel 
