@@ -7,7 +7,8 @@ Bypasses paywall & create a custom newsfeed based on your favorite users.
 
 
 ## Component
-<img width="559" alt="image" src="https://github.com/CallumAS/Medium-Fuser/assets/53473235/4469ac46-887c-45d6-b151-d42cde800d10">
+![ezgif com-video-to-gif](https://github.com/CallumAS/Medium-Fuser/assets/53473235/d6cb1726-9323-4f4d-93d8-631961bf2374)
+
 
 Creates a feed from all users scraped look below on how to add a user
 
